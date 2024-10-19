@@ -66,6 +66,12 @@ std::string HomeDirLibrary::GetHomeDirectory() {
   return std::string();
 }
 
+
+std::string HomeDirLibrary::GetDataDir() {
+  return std::string();
+}
+
+
 #endif
 
 
@@ -78,31 +84,44 @@ std::string HomeDirLibrary::GetHomeDirectory() {
 #include <windows.h>
 #include <shlobj.h>
 
-std::string HomeDirLibrary::GetHomeDirectory() {
+std::string GetCsidlPathA(int csidl) {
   try {
-    CHAR profile[MAX_PATH];
-    if (SHGetFolderPathA(nullptr, CSIDL_PROFILE, nullptr, 0, profile)!= S_OK) {
-      // Error occured
-      return std::string();
+    CHAR s[MAX_PATH];
+    if (SHGetFolderPathA(nullptr, csidl, nullptr, 0, s) == S_OK) {
+      return std::string(s);
     }
-    return std::string(profile);
-  } catch (std::exception) {
-  }
+  } catch (std::exception) {}
   return std::string();
 }
 
-
-std::wstring HomeDirLibrary::GetHomeDirectoryW() {
+std::wstring GetCsidlPathW(int csidl) {
   try {
-    WCHAR profile[MAX_PATH];
-    if (SHGetFolderPathW(nullptr, CSIDL_PROFILE, nullptr, 0, profile)!= S_OK) {
-      // Error occured
-      return std::wstring();
+    WCHAR s[MAX_PATH];
+    if (SHGetFolderPathW(nullptr, csidl, nullptr, 0, s) == S_OK) {
+      return std::wstring(s);
     }
-    return std::wstring(profile);
-  } catch (std::exception) {
-  }
+  } catch (std::exception) {}
   return std::wstring();
+}
+
+
+std::string HomeDirLibrary::GetHomeDir() {
+  return GetCsidlPathA(CSIDL_PROFILE);
+}
+
+
+std::wstring HomeDirLibrary::GetHomeDirW() {
+  return GetCsidlPathW(CSIDL_PROFILE);
+}
+
+
+std::string HomeDirLibrary::GetDataDir() {
+  return GetCsidlPathA(CSIDL_LOCAL_APPDATA);
+}
+
+
+std::wstring HomeDirLibrary::GetDataDirW() {
+  return GetCsidlPathW(CSIDL_LOCAL_APPDATA);
 }
 
 #endif

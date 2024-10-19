@@ -29,10 +29,13 @@ SOFTWARE.
 
 int main()
 {
-  std::cout << "Home directory: '" << HomeDirLibrary::GetHomeDirectory() << "'" << std::endl;
+  std::cout << "Home directory: '" << HomeDirLibrary::GetHomeDir() << "'" << std::endl;
+  std::cout << "Local application data directory: '" << HomeDirLibrary::GetDataDir() << "'" << std::endl;
 
 #if defined(_WIN32) || defined(__WIN32__) || defined(WIN32)
-  std::wcout << "Wide Home directory: '" << HomeDirLibrary::GetHomeDirectoryW() << "'" << std::endl;
+  std::wcout << "Windows wide paths:" << std::endl;
+  std::wcout << "Wide Home directory: '" << HomeDirLibrary::GetHomeDirW() << "'" << std::endl;
+  std::wcout << "Wide Local application data directory: '" << HomeDirLibrary::GetDataDirW() << "'" << std::endl;
 #endif
 
   return 0;

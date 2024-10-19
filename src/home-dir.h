@@ -29,10 +29,12 @@ SOFTWARE.
 
 namespace HomeDirLibrary {
 
-  std::string GetHomeDirectory();
+  std::string GetHomeDir();
+  std::string GetDataDir();
 
 #if defined(_WIN32) || defined(__WIN32__) || defined(WIN32)
-  std::wstring GetHomeDirectoryW();
+  std::wstring GetHomeDirW();
+  std::wstring GetDataDirW();
 #endif
 
 }

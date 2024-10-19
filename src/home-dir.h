@@ -31,6 +31,10 @@ namespace HomeDirLibrary {
 
   std::string GetHomeDirectory();
 
+#if defined(_WIN32) || defined(__WIN32__) || defined(WIN32)
+  std::wstring GetHomeDirectoryW();
+#endif
+
 }
 
 #endif // HOMEDIR_H_EVGENY_KISLOV_20241017

@@ -69,3 +69,40 @@ std::string HomeDirLibrary::GetHomeDirectory() {
 #endif
 
 
+// --------------------------
+// Windows implementation
+// --------------------------
+
+#ifdef WINDOWS_PLATFORM
+
+#include <windows.h>
+#include <shlobj.h>
+
+std::string HomeDirLibrary::GetHomeDirectory() {
+  try {
+    CHAR profile[MAX_PATH];
+    if (SHGetFolderPathA(nullptr, CSIDL_PROFILE, nullptr, 0, profile)!= S_OK) {
+      // Error occured
+      return std::string();
+    }
+    return std::string(profile);
+  } catch (std::exception) {
+  }
+  return std::string();
+}
+
+
+std::wstring HomeDirLibrary::GetHomeDirectoryW() {
+  try {
+    WCHAR profile[MAX_PATH];
+    if (SHGetFolderPathW(nullptr, CSIDL_PROFILE, nullptr, 0, profile)!= S_OK) {
+      // Error occured
+      return std::wstring();
+    }
+    return std::wstring(profile);
+  } catch (std::exception) {
+  }
+  return std::wstring();
+}
+
+#endif

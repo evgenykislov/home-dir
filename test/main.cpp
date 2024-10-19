@@ -26,8 +26,14 @@ SOFTWARE.
 
 #include "home-dir.h"
 
+
 int main()
 {
   std::cout << "Home directory: '" << HomeDirLibrary::GetHomeDirectory() << "'" << std::endl;
+
+#if defined(_WIN32) || defined(__WIN32__) || defined(WIN32)
+  std::wcout << "Wide Home directory: '" << HomeDirLibrary::GetHomeDirectoryW() << "'" << std::endl;
+#endif
+
   return 0;
 }

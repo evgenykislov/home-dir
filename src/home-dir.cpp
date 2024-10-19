@@ -49,8 +49,9 @@ SOFTWARE.
 #include <unistd.h>
 
 const char kHomeEnvVar[] = "HOME";
+const char kConfigDir[] = "/.config";
 
-std::string HomeDirLibrary::GetHomeDirectory() {
+std::string HomeDirLibrary::GetHomeDir() {
   try {
     auto ev = getenv(kHomeEnvVar);
     if (ev) {
@@ -68,7 +69,7 @@ std::string HomeDirLibrary::GetHomeDirectory() {
 
 
 std::string HomeDirLibrary::GetDataDir() {
-  return std::string();
+  return GetHomeDir() + kConfigDir;
 }
 
 
